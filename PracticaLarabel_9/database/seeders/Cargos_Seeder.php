@@ -14,6 +14,17 @@ class Cargos_Seeder extends Seeder
      *
      * @return void
      */
+
+    public function up()
+    {
+        Schema::create('cargos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre', 50)->unique();
+            $table->timestamps();
+        });
+    }
+
+
     public function run()
     {
         DB::table('cargos')->insert([
