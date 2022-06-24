@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empleado;
 use Illuminate\Http\Request;
+use App\Models\Cargo;
 
 
 
@@ -11,15 +13,16 @@ class EmpleadosController extends Controller
 {
     
     public function index(){
-        $titulo = "Vista principal de empleados";
-    $empleados = [
-        ['nombre'=>'Luis'],
-        ['nombre'=>'Pedro'],
-        ['nombre'=>'Samuel'],
-        ['nombre'=>'Ana'],
-    ];
-    return view('Empleados.index', compact('titulo', 'empleados'));
+
+    $titulo = "Vista principal de empleados";
+    $empleados = Empleado::orderBy('id','desc')->paginate(5);
+    $cargos = Cargo::all();
+    return view('Empleados.index', compact('titulo', 'empleados', 'cargos'));
+
     }
+
+    
+
 
     public function crear(){
         $titulo = "Vista crear de empleados";
@@ -35,6 +38,9 @@ class EmpleadosController extends Controller
         return view('Empleados.editar');
     }
     
+    public function guardar(){
+        return request();
+    }
     
 }
 
