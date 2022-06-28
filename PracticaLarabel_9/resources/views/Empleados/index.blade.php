@@ -17,7 +17,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Crear Empleado</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>                        
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <form action="{{route('empleadoGuardar')}}" method="post">
@@ -74,6 +74,12 @@
     </div>
     <!-- FIN Modal CREAR EMPLEADO-->
     <br>
+
+@if (session('mensaje'))
+    <div class="alert alert-success">
+        {{ session('mensaje') }}
+    </div>
+@endif
     <table class="table">
         <thead>
         <tr>
@@ -110,3 +116,12 @@
         {{ $empleados->links() }}
     </div>
 @endsection()
+@section('scripts')
+    @if($errors->any())
+    <script>
+        $(document).ready(function(){
+            $('#crearEmpleadoModal').modal('show')
+        })
+    </script>
+    @endif
+@endsection

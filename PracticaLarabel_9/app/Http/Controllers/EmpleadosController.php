@@ -37,10 +37,21 @@ class EmpleadosController extends Controller
         $titulo = "Vista crear de empleados";
         return view('Empleados.editar');
     }
-    
+
     public function guardar(){
-        return request();
-    }
+
+        $campos=request()->validate([
+            'nombre'=>'required|min:3',
+            'edad'=>'required',
+            'direccion'=>'required',
+            'email'=>'required|email',
+            'idCargo'=>'required'
     
+        ]);
+        Empleado::create($campos);
+    
+        return redirect('empleados')->with('mensaje', 'Empleado guardado');
+    }
+
 }
 
